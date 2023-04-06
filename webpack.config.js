@@ -41,9 +41,6 @@ Encore
    */
   .cleanupOutputBeforeBuild()
   .enableBuildNotifications()
-  .enableSourceMaps(!Encore.isProduction())
-  // enables hashed filenames (e.g. app.abc123.css)
-  .enableVersioning(Encore.isProduction())
 
   // configure Babel
   // .configureBabel((config) => {
@@ -55,7 +52,8 @@ Encore
     config.useBuiltIns = "usage";
     config.corejs = "3.23";
   })
-  .enablePostCssLoader();
+  .enablePostCssLoader()
+  .enableVersioning();
 
 // enables Sass/SCSS support
 //.enableSassLoader()
