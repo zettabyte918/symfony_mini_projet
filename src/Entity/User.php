@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -28,6 +30,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Music::class)]
+    private Collection $musics;
+
+    public function __construct()
+    {
+        $this->musics = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -97,5 +107,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Music>
+     */
+    public function getMusics(): Collection
+    {
+        return $this->musics;
+    }
+
+    public function addMusic(Music $music): self
+    {
+        if (!$this->musics->contains($music)) {
+            $this->musics->add($music);
+            $music->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMusic(Music $music): self
+    {
+        if ($this->musics->removeElement($music)) {
+            // set the owning side to null (unless already changed)
+            if ($music->getUser() === $this) {
+                $music->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -8,9 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractController
 {
-    /**
-     * @Route("/dashboard", name="dashboard")
-     */
+    #[Route('/dashboard', name:'dashboardMainPage')]
     public function index(): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
