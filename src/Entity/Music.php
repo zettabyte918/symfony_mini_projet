@@ -14,19 +14,21 @@ class Music
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $artist = null;
+    private ?string $description = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $imageFile = null;
+    private ?string $image = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $musicFile = null;
+    private ?string $music = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $share = null;
 
     #[ORM\ManyToOne(inversedBy: 'musics')]
-    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
     public function getId(): ?int
@@ -34,50 +36,62 @@ class Music
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getName(): ?string
     {
-        return $this->title;
+        return $this->name;
     }
 
-    public function setTitle(string $title): self
+    public function setName(string $name): self
     {
-        $this->title = $title;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getArtist(): ?string
+    public function getDescription(): ?string
     {
-        return $this->artist;
+        return $this->description;
     }
 
-    public function setArtist(string $artist): self
+    public function setDescription(string $description): self
     {
-        $this->artist = $artist;
+        $this->description = $description;
 
         return $this;
     }
 
-    public function getImageFile(): ?string
+    public function getImage(): ?string
     {
-        return $this->imageFile;
+        return $this->image;
     }
 
-    public function setImageFile(string $imageFile): self
+    public function setImage(string $image): self
     {
-        $this->imageFile = $imageFile;
+        $this->image = $image;
 
         return $this;
     }
 
-    public function getMusicFile(): ?string
+    public function getMusic(): ?string
     {
-        return $this->musicFile;
+        return $this->music;
     }
 
-    public function setMusicFile(string $musicFile): self
+    public function setMusic(string $music): self
     {
-        $this->musicFile = $musicFile;
+        $this->music = $music;
+
+        return $this;
+    }
+
+    public function getShare(): ?string
+    {
+        return $this->share;
+    }
+
+    public function setShare(string $share): self
+    {
+        $this->share = $share;
 
         return $this;
     }
